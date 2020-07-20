@@ -20,8 +20,15 @@ for i in data['rates']:
         x_coord += 1
 map_data=list(zip(dates,price_INR,price_GBP))
 result = sorted(map_data, key = lambda x: x[0])
-
-
+dates.clear()
+price_INR.clear()
+price_GBP.clear()
+dates, price_INR, price_GBP = zip(*result)
+a=max(price_INR)
+b=max(price_GBP)
+y_coord=max(a,b)
+plt.plot(dates,price_INR, label='INR')
+plt.plot(dates,price_GBP, label='GBP')
 plt.annotate('INR current rate-'+str(latest_rates['rates']['INR']),
              (x_coord-5,y_coord),
              textcoords='offset points',
@@ -30,3 +37,9 @@ plt.annotate('GBP current rate-'+str(latest_rates['rates']['GBP']),
              (x_coord-5,y_coord),
              textcoords='offset points',
              xytext=(0,30),ha='center')
+plt.xlabel('Dates in Jan 2019')
+plt.xticks(rotation=90)
+plt.ylabel('Rates of Jan 2019')
+plt.title('Exchange rate against EUR')
+plt.legend()
+plt.show()
